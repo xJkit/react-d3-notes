@@ -1,6 +1,6 @@
 # React + D3
 
-This project is focused on combining most popular UI library `React` and `D3` for rendering different type of charts. Instead of `<script>` tag from the html page when using D3, I choose `npm` and `webpack`.
+Please note that this project is not ![react-d3]https://github.com/esbullington/react-d3(). Instead, this project is focused on combining most popular UI library `React` and `D3` for rendering different type of charts. Rather than `<script>` tag from the html page when using D3, I choose `npm` and `webpack`.
 
 使用 React + D3(v4.x) 有幾個地方是需要注意的：
 
