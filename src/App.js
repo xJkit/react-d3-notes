@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 //components
 import { Switch, Link, Route } from 'react-router-dom';
-import { Home, BarChart } from './components';
+import { Home, BarChart, FDG } from './components';
 
 class App extends Component {
   render() {
@@ -27,11 +27,17 @@ class App extends Component {
               BarChart
             </Link>
           </li>
+          <li>
+            <Link to="/force-directed-graph">
+              Force-Directed Graph
+            </Link>
+          </li>
         </ul>
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/bar-chart" component={BarChart} />
+            <Route path="/force-directed-graph" component={FDG} />
           </Switch>
         </div>
       </div>
