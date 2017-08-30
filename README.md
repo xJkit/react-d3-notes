@@ -12,3 +12,8 @@ Please note that this project is not [react-d3](https://github.com/esbullington/
   1. React 畫面更新： render
   1. D3 在 componentDidUpdate 的時候開始自己的渲染（此時 state 上的資料已經是最新狀態）
   1. 注意: 一開始的 D3 應該在 componentDidMount 的時候畫畫
+
+## TODO
+
+- [x] BarChart
+- [x] Force-directed Graph
