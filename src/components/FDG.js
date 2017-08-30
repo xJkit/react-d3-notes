@@ -207,7 +207,9 @@ class FDG extends Component {
           width={this.props.width}
           height={this.props.height}
         />
-        <button onClick={this.onAddBtnClicked}>Add</button>
+        <div style={{ textAlign: 'center' }}>
+          <button onClick={this.onAddBtnClicked}>Add</button>
+        </div>
       </StyledBlock>
     );
   }
