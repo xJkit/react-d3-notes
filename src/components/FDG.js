@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as d3 from 'd3';
-import * as fakeData from '../fake/graph';
 
 const StyledBlock = styled.div`
   padding: 20px;
@@ -13,10 +12,18 @@ const StyledBlock = styled.div`
     stroke-opacity: 0.6;
     stroke-width: 1px;
   }
-  /* .nodes 是·g 圖層, circle 在裡面 */
-  circle {
-    stroke: #000;
-    stroke-width: 2px;
+
+  /* .node 是·g 圖層, circle 與 text 在裡面 */
+  .node {
+    > text {
+      pointer-events: none;
+      font-size: 14px;
+    }
+
+    > circle {
+      stroke: #000;
+      stroke-width: 2px;
+    }
   }
 `;
 
@@ -34,9 +41,13 @@ class FDG extends Component {
 
   constructor(props) {
     super(props);
+    // contexts
     this.svg = null;
+    this.circle = null;
+    this.line = null;
     // data is in the state:
     this.state = {
+      id: 1,
       nodes: [
         { id: 0 },
         { id: 1 },
@@ -66,32 +77,50 @@ class FDG extends Component {
   }
 
   setLineContext = () => {
-    this.line = this.svg
-      .selectAll("line")
-      .data(this.state.links)
+    this.line = this.svg.selectAll("line").data(this.state.links);
+    this.line.exit().remove();
+    this.line = this.line
       .enter().append("line")
+      .merge(this.line);
   }
 
   setCircleContext = () => {
-    this.circle = this.svg
-    .selectAll("circle")
-    .data(this.state.nodes)
-    .enter().append("circle")
-    .attr("r", 8)
-    .attr("fill", (d, i) => COLOR(i))
-    .call(d3.drag()
-      .on("start", this.dragstarted.bind(this))
-      .on("drag", this.dragged.bind(this))
-      .on("end", this.dragended.bind(this)));
+    // data-join
+    this.circle = this.svg.selectAll('.node').data(this.state.nodes);
+    // exit phase
+    this.circle.exit().remove();
+    // enter phase
+    this.circle = this.circle
+      .enter().append('g')
+      .attr('class', 'node')
+      .merge(this.circle)
+      .call(d3.drag()
+        .on("start", this.dragstarted.bind(this))
+        .on("drag", this.dragged.bind(this))
+        .on("end", this.dragended.bind(this)));
+
+    this.circle
+      .append('circle')
+      .attr("r", 20)
+      .attr("fill", (d, i) => COLOR(i))
+    this.circle
+      .append('text')
+      .attr('dx', 30)
+      .attr('dy', 0)
+      .attr('text-anchor', 'middle')
+      .text(d => d.id)
   }
 
   setSimulationContext = () => {
-    this.simulation = d3.forceSimulation(this.state.nodes)
+    this.simulation = d3.forceSimulation(this.state.nodes) // eat nodes context
       .velocityDecay(0.5)
-      .force("link", d3.forceLink(this.state.links).id(function (d) { return d.id; }))
       .force("charge", d3.forceManyBody())
-      .force('collide', d3.forceCollide(12.5))
+      .force('collide', d3.forceCollide()
+        .radius(20))
       .force("center", d3.forceCenter(this.props.width / 2, this.props.height / 2))
+      .force("link", d3.forceLink(this.state.links) // eat link context. 寫在 forceLink 裡面或是外面 .links 都行
+        .id(d => d.id)
+        .distance(60))
       .on("tick", this.ticked.bind(this));
     this.simulation.alpha(1.5);
     this.simulation.alphaMin(0.001);
@@ -113,6 +142,7 @@ class FDG extends Component {
     this.setLineContext();
     // 設定 nodes
     this.setCircleContext();
+    // 設定文字
     // 設定 force simulation
     this.setSimulationContext();
   }
@@ -124,8 +154,8 @@ class FDG extends Component {
       .attr('x2', d => d.target.x)
       .attr('y2', d => d.target.y);
     this.circle
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y);
+      .attr('transform', d => `translate(${d.x},${d.y})`);
+    // transform is applied on g
   }
 
   // 力導向圖的拖曳
@@ -157,9 +187,14 @@ class FDG extends Component {
   }
 
   onAddBtnClicked = () => {
+    const newId = this.state.id + 1;
     this.setState({
-      nodes: this.state.nodes.concat({ id: 6 }),
-      links: this.state.links.concat({ source: 1, target: 6 }),
+      id: newId,
+      nodes: this.state.nodes.concat({ id: newId }),
+      links: this.state.links.concat({
+        source: newId % 2,
+        target: newId
+      }),
     });
   }
 
