@@ -15,5 +15,10 @@ Please note that this project is not [react-d3](https://github.com/esbullington/
 
 ## TODO
 
-- [x] BarChart
+- [x] Histogram
+
+<img src="./histogram.png" width="400" />
+
 - [x] Force-directed Graph
+
+<img src="./fdg.png" width="400" />
