@@ -129,25 +129,31 @@ class FDG extends Component {
   }
 
   // 力導向圖的拖曳
-  dragstarted = () => {
+  dragstarted = (d) => {
     if (!d3.event.active) {
       this.simulation.alphaTarget(0.3).restart();
     }
-    d3.event.subject.fx = d3.event.subject.x;
-    d3.event.subject.fy = d3.event.subject.x;
+    d.fx = d.x;
+    d.fy = d.y;
   }
 
-  dragged = () => {
-    d3.event.subject.fx = d3.event.x; // 拖曳過程中固定節點位置到游標位置
-    d3.event.subject.fy = d3.event.y;
+  dragged = (d) => {
+    // 拖曳過程中固定節點位置到游標位置
+    // d3.event.subject.fx = d3.event.x;
+    // d3.event.subject.fy = d3.event.y;
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
   }
 
-  dragended = () => {
+  dragended = (d) => {
     if (!d3.event.active) {
       this.simulation.alphaTarget(0.3).restart();
     }
-    d3.event.subject.fx = null; // 拖曳結束後停止固定拖放物件
-    d3.event.subject.fy = null;
+    // 拖曳結束後停止固定拖放物件
+    // d3.event.subject.fx = null;
+    // d3.event.subject.fy = null;
+    d.fx = null;
+    d.fy = null;
   }
 
   onAddBtnClicked = () => {
