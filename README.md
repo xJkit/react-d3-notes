@@ -15,10 +15,16 @@ Please note that this project is not [react-d3](https://github.com/esbullington/
 
 ## TODO
 
-- [x] Histogram
+- [x] Bar Chart
 
 <img src="./histogram.png" width="400" />
 
-- [x] Force-directed Graph
+- [x] Force-Directed Graph
 
 <img src="./fdg.png" width="400" />
+
+- [ ] Line Chart
+- [ ] Pie Chart
+- [ ] Tree map
+- [ ] Radar Chart
+- [ ] Sequences Sunburst
