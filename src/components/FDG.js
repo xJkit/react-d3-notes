@@ -28,6 +28,22 @@ const StyledBlock = styled.div`
 `;
 
 const COLOR = d3.scaleOrdinal(d3.schemeCategory20);
+const INITIAL_NODES = [
+  { id: 0 },
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
+];
+const INITIAL_LINKS = [
+  { source: 0, target: 1 },
+  { source: 0, target: 2 },
+  { source: 0, target: 3 },
+  { source: 1, target: 4 },
+  { source: 1, target: 5 },
+  { source: 1, target: 0 },
+];
 
 class FDG extends Component {
   static propTypes = {
@@ -45,25 +61,11 @@ class FDG extends Component {
     this.svg = null;
     this.circle = null;
     this.line = null;
-    // data is in the state:
+    // data is in the state
     this.state = {
       id: 1,
-      nodes: [
-        { id: 0 },
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
-        { id: 4 },
-        { id: 5 },
-      ],
-      links: [
-        { source: 0, target: 1 },
-        { source: 0, target: 2 },
-        { source: 0, target: 3 },
-        { source: 1, target: 4 },
-        { source: 1, target: 5 },
-        { source: 1, target: 0 },
-      ],
+      nodes: INITIAL_NODES,
+      links: INITIAL_LINKS,
     };
   }
 
@@ -199,6 +201,13 @@ class FDG extends Component {
     });
   }
 
+  onResetBtnClicked = () => {
+    this.setState({
+      nodes: INITIAL_NODES,
+      links: INITIAL_LINKS,
+    });
+  }
+
   render() {
     return (
       <StyledBlock>
@@ -209,6 +218,7 @@ class FDG extends Component {
         />
         <div style={{ textAlign: 'center' }}>
           <button onClick={this.onAddBtnClicked}>Add</button>
+          <button onClick={this.onResetBtnClicked}>Reset</button>
         </div>
       </StyledBlock>
     );
