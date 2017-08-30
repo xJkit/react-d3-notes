@@ -20,6 +20,8 @@ const StyledBlock = styled.div`
   }
 `;
 
+const COLOR = d3.scaleOrdinal(d3.schemeCategory20);
+
 class FDG extends Component {
   static propTypes = {
     width: PropTypes.number,
@@ -63,36 +65,27 @@ class FDG extends Component {
     this.renderGraph();
   }
 
-  renderGraph = () => {
-  /**
-   * render 順序:
-   * 1. 設定 links: selectAll('line') =>  .data => .enter().append('line')  => .attr...
-   * 2. 設定 nodes: selectAll('circle') => .data => .enter().append('circle') => .attr... => .call(d3.drag().on('start').on('drag').on('end'))
-   * 3. 設定 simulation (需要 nodes 與 links)
-   * 4. 將 simulation 靠 ticked 綁定 nodes: simulation.nodes(data.nodes).on('ticked', ticked)
-   * 5. 將 simulation 靠 force 模組綁定 links: simulation.force('link').links(data.links)
-   * 6. 設定 ticked (內含設定 link 與 node 的行為)
-   */
-    const svg = d3.select(this.svg);
-    const color = d3.scaleOrdinal(d3.schemeCategory20);
-    // 設定 links
-    this.line = svg
+  setLineContext = () => {
+    this.line = this.svg
       .selectAll("line")
       .data(this.state.links)
       .enter().append("line")
-    // 設定 nodes
-    this.circle = svg
-      .selectAll("circle")
-      .data(this.state.nodes)
-      .enter().append("circle")
-      .attr("r", 8)
-      .attr("fill", (d, i) => color(i))
-      .call(d3.drag()
-        .on("start", this.dragstarted.bind(this))
-        .on("drag", this.dragged.bind(this))
-        .on("end", this.dragended.bind(this)));
+  }
 
-    // 設定 force simulation
+  setCircleContext = () => {
+    this.circle = this.svg
+    .selectAll("circle")
+    .data(this.state.nodes)
+    .enter().append("circle")
+    .attr("r", 8)
+    .attr("fill", (d, i) => COLOR(i))
+    .call(d3.drag()
+      .on("start", this.dragstarted.bind(this))
+      .on("drag", this.dragged.bind(this))
+      .on("end", this.dragended.bind(this)));
+  }
+
+  setSimulationContext = () => {
     this.simulation = d3.forceSimulation(this.state.nodes)
       .velocityDecay(0.5)
       .force("link", d3.forceLink(this.state.links).id(function (d) { return d.id; }))
@@ -104,6 +97,24 @@ class FDG extends Component {
     this.simulation.alphaMin(0.001);
     this.simulation.alphaDecay(0.0228);
     this.simulation.alphaTarget(0);
+  }
+
+  renderGraph = () => {
+  /**
+   * render 順序:
+   * 1. 設定 links: selectAll('line') =>  .data => .enter().append('line')  => .attr...
+   * 2. 設定 nodes: selectAll('circle') => .data => .enter().append('circle') => .attr... => .call(d3.drag().on('start').on('drag').on('end'))
+   * 3. 設定 simulation (需要 nodes 與 links)
+   * 4. 將 simulation 靠 ticked 綁定 nodes: simulation.nodes(data.nodes).on('ticked', ticked)
+   * 5. 將 simulation 靠 force 模組綁定 links: simulation.force('link').links(data.links)
+   * 6. 設定 ticked (內含設定 link 與 node 的行為)
+   */
+    // 設定 links
+    this.setLineContext();
+    // 設定 nodes
+    this.setCircleContext();
+    // 設定 force simulation
+    this.setSimulationContext();
   }
 
   ticked = () => {
@@ -150,7 +161,7 @@ class FDG extends Component {
     return (
       <StyledBlock>
         <svg
-          ref={node => this.svg = node}
+          ref={node => this.svg = d3.select(node)}
           width={this.props.width}
           height={this.props.height}
         />
