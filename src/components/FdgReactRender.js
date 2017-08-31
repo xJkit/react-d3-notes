@@ -67,7 +67,18 @@ class FdgReactRender extends Component {
           fill="red"
           key={`circle-${index}`}
           onClick={() => console.log(`you click index ${index}`)}
+          style={{ cursor: 'pointer' }}
         />
+      ))}
+      {this.state.nodes.map((node, index) => (
+        <text
+          x={node.x}
+          y={node.y}
+          dx={20}
+          textAnchor="middle"
+          fill="orange"
+          key={`text-${index}`}
+        >{index}</text>
       ))}
       </svg>
     );
