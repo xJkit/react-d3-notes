@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 //components
 import { Switch, Link, Route } from 'react-router-dom';
-import { Home, BarChart, FDG } from './components';
+import { Home, BarChart, FDG, FdgReactRender } from './components';
 
 class App extends Component {
   render() {
@@ -32,12 +32,18 @@ class App extends Component {
               Force-Directed Graph
             </Link>
           </li>
+          <li>
+            <Link to="/force-directed-graph-react-render">
+              FdgReactRender
+            </Link>
+          </li>
         </ul>
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/bar-chart" component={BarChart} />
             <Route path="/force-directed-graph" component={FDG} />
+            <Route path="/force-directed-graph-react-render" component={FdgReactRender} />
           </Switch>
         </div>
       </div>
