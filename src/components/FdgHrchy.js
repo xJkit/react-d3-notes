@@ -61,12 +61,12 @@ class FdgHrchy extends Component {
     const clickedNodeStatus = nodes.filter(node => node.value === value);
     // debugger;
     if (clickedNodeStatus[0].isLeaf) {
-      alert(`leaf node ${value} does not have sub branches`);
+      alert(`leaf node ${value} does not have any children`);
     } else if (linkSources.indexOf(value) === -1) {
       // clicked node is not parent node
       this.props.getFakeDataByValue(value);
     } else {
-      console.warn(`you clicked ${value} which is a parent node`);
+      alert(`parent node ${value} has been already expanded`);
     }
   }
 
