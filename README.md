@@ -20,6 +20,9 @@ Please note that this project is not [react-d3](https://github.com/esbullington/
 <img src="./histogram.png" width="400" />
 
 - [x] Force-Directed Graph
+  * d3 rendering
+  * react rendering
+  * react rendering + hierarchy dataset
 
 <img src="./fdg.png" width="400" />
 
