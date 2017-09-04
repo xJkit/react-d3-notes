@@ -53,6 +53,7 @@ class FdgHrchy extends Component {
 
   componentWillUnmount() {
     this.force.stop();
+    this.props.getFakeDataByValue('f2e');
   }
 
   onNodeClickByValue = value => () => {
