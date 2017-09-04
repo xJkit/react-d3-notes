@@ -1,62 +1,143 @@
 export const f2e = {
-  name: 'f2e',
+  name: 'Front End',
+  value: 'f2e',
   children: [
-    { name: 'react', isLeaf: false },
-    { name: 'vue', isLeaf: false },
-    { name: 'd3', isLeaf: false },
-    { name: 'design', isLeaf: false },
+    { name: 'React.js', value: 'react', isLeaf: false },
+    { name: 'Vue.js', value: 'vue', isLeaf: false },
+    { name: 'd3.js', value: 'd3', isLeaf: false },
+    { name: 'Design', value: 'design', isLeaf: false },
   ],
   isLeaf: false,
 };
 
 export const react = {
-  name: 'react',
+  name: 'React.js',
+  value: 'react',
   children: [
-    { name: 'redux', isLeaf: false },
-    { name: 'mobx', isLeaf: true },
-    { name: 'react-router', isLeaf: true },
+    { name: 'Redux', value: 'redux', isLeaf: false },
+    { name: 'Mobx', value: 'mobx', isLeaf: true },
+    { name: 'react-router', value: 'reactRouter', isLeaf: true },
   ],
   isLeaf: false,
 };
 
 export const vue = {
-  name: 'vue',
+  name: 'Vue.js',
+  value: 'vue',
   isLeaf: false,
   children: [
-    { name: 'vuex', isLeaf: true },
-    { name: 'vue-router', isLeaf: true },
+    { name: 'Vuex', value: 'vuex', isLeaf: true },
+    { name: 'vue-router',  value: 'vueRouter', isLeaf: true },
   ],
 };
 
 export const d3 = {
-  name: 'd3',
+  name: 'd3.js',
+  value: 'd3',
   isLeaf: false,
   children: [
-    { name: 'd3-scale', isLeaf: true },
-    { name: 'd3-color', isLeaf: true },
-    { name: 'd3-hierarchy', isLeaf: true },
-    { name: 'd3-force', isLeaf: true },
+    { name: 'd3-scale', value: 'd3Scale', isLeaf: true },
+    { name: 'd3-hierarchy', value: 'd3Hierarchy', isLeaf: true },
+    { name: 'd3-force', value: 'd3Force', isLeaf: true },
   ],
 };
 
 export const design = {
-  name: 'design',
+  name: 'Design',
+  value: 'design',
   isLeaf: false,
   children: [
-    { name: 'ant-design', isLeaf: true },
-    { name: 'material-design', isLeaf: true },
-    { name: 'bootstrap', isLeaf: true },
-    { name: 'foundation', isLeaf: true },
+    { name: 'ant-design', value: 'antDesign', isLeaf: true },
+    { name: 'material-design',  value: 'materialDesign', isLeaf: true },
+    { name: 'bootstrap', value: 'bootStrap', isLeaf: true },
   ],
 };
 
 export const redux = {
-  name: 'redux',
+  name: 'Redux',
+  value: 'redux',
   isLeaf: false,
   children: [
-    { name: 'redux-saga', isLeaf: true },
-    { name: 'redux-observable', isLeaf: true },
-    { name: 'redux-router', isLeaf: true },
-    { name: 'redux-form', isLeaf: true },
+    { name: 'redux-saga', value: 'reduxSaga', isLeaf: true },
+    { name: 'redux-observable',value: 'reduxObservable', isLeaf: true },
+    { name: 'redux-form', value: 'reduxForm', isLeaf: true },
   ],
+};
+
+export const mobx = {
+  name: 'Mobx',
+  value: 'mobx',
+  isLeaf: true,
+};
+
+export const reactRouter = {
+  name: 'react-router',
+  value: 'reactRouter',
+  isLeaf: true,
+};
+
+export const vuex = {
+  name: 'Vuex',
+  value: 'veux',
+  isLeaf: true,
+};
+
+export const vueRouter = {
+  name: 'vue-router',
+  value: 'vueRouter',
+  isLeaf: true,
+};
+
+export const d3Scale = {
+  name: 'd3-scale',
+  value: 'd3Scale',
+  isLeaf: true,
+};
+
+export const d3Hierarchy = {
+  name: 'd3-hierarchy',
+  value: 'd3Hierarchy',
+  isLeaf: true,
+};
+
+export const d3Force = {
+  name: 'd3-force',
+  value: 'd3Force',
+  isLeaf: true,
+};
+
+export const bootStrap = {
+  name: 'bootstrap',
+  value: 'bootStrap',
+  isLeaf: true,
+};
+
+export const materialDesign = {
+  name: 'material-design',
+  value: 'materialDesign',
+  isLeaf: true,
+};
+
+export const antDesign = {
+  name: 'ant-design',
+  value: 'antDesign',
+  isLeaf: true,
+};
+
+export const reduxSaga = {
+  name: 'redux-saga',
+  value: 'reduxSaga',
+  isLeaf: true,
+};
+
+export const reduxObservable = {
+  name: 'redux-observable',
+  value: 'reduxObservable',
+  isLeaf: true,
+};
+
+export const reduxForm = {
+  name: 'redux-form',
+  value: 'reduxForm',
+  isLeaf: true,
 };
