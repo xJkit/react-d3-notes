@@ -3,9 +3,10 @@ import logo from './logo.svg';
 import './App.css';
 import { genNodesAndLinks } from './fake/FdgReactRender';
 import { clone } from 'ramda';
+import * as fakeHrchyData from './fake/hierarchy';
 //components
 import { Switch, Link, Route } from 'react-router-dom';
-import { Home, BarChart, FDG, FdgReactRender } from './components';
+import { Home, BarChart, FDG, FdgReactRender, FdgHrchy } from './components';
 
 class App extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class App extends Component {
     const { nodes, links } = genNodesAndLinks();
     this.state = {
       data: { nodes, links },
+      hrchyData: fakeHrchyData.f2e,
     };
   }
 
@@ -31,6 +33,12 @@ class App extends Component {
         nodes: [...data.nodes, ...nodes],
         links: [...data.links, ...links],
       },
+    });
+  }
+
+  getFakeDataByValue = value => {
+    this.setState({
+      hrchyData: fakeHrchyData[value],
     });
   }
 
@@ -65,6 +73,11 @@ class App extends Component {
               FdgReactRender
             </Link>
           </li>
+          <li>
+            <Link to="/force-directed-graph-hierarchy-data">
+              FdgHrchy
+            </Link>
+          </li>
         </ul>
         <div>
           <Switch>
@@ -79,6 +92,14 @@ class App extends Component {
                   appendData={this.appendData}
                   nodes={clone(this.state.data.nodes)}
                   links={clone(this.state.data.links)}
+                />}
+            />
+            <Route path="/force-directed-graph-hierarchy-data"
+              render={routerProps =>
+                <FdgHrchy
+                  {...routerProps}
+                  hrchyData={clone(this.state.hrchyData)}
+                  getFakeDataByValue={this.getFakeDataByValue}
                 />}
             />
           </Switch>
