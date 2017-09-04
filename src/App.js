@@ -37,6 +37,7 @@ class App extends Component {
   }
 
   getFakeDataByValue = value => {
+    console.log(`get new data by ${value}`);
     this.setState({
       hrchyData: fakeHrchyData[value],
     });

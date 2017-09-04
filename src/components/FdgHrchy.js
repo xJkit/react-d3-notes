@@ -34,7 +34,12 @@ class FdgHrchy extends Component {
   }
 
   componentWillReceiveProps({ hrchyData }) {
-    // this.setState({ nodes, links });
+    const newNodes = flattenHrchyToNodes(hrchyData);
+    const newLinks = flattenHrchyToLinks(hrchyData);
+    this.setState({
+      nodes: appendNodes(this.state.nodes, newNodes),
+      links: appendLinks(this.state.links, newLinks),
+    });
     this.isUpdateData = true;
   }
 
@@ -51,7 +56,18 @@ class FdgHrchy extends Component {
   }
 
   onNodeClickByValue = value => () => {
-    alert(`you click ${value}`);
+    const { links, nodes } = this.state;
+    const linkSources = links.map(link => link.source.value);
+    const clickedNodeStatus = nodes.filter(node => node.value === value);
+    // debugger;
+    if (clickedNodeStatus[0].isLeaf) {
+      alert(`leaf node ${value} does not have sub branches`);
+    } else if (linkSources.indexOf(value) === -1) {
+      // clicked node is not parent node
+      this.props.getFakeDataByValue(value);
+    } else {
+      console.warn(`you clicked ${value} which is a parent node`);
+    }
   }
 
   renderGraph = () => {
@@ -92,7 +108,7 @@ class FdgHrchy extends Component {
             r={20}
             cx={node.x}
             cy={node.y}
-            fill="orange"
+            fill={node.isLeaf ? 'steelblue' : 'orange'}
             key={`circle-${index}`}
             onClick={this.onNodeClickByValue(node.value)}
             style={{ cursor: 'pointer', strokeWidth: '1px', stroke: '#000' }}
