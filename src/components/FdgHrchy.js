@@ -78,6 +78,8 @@ class FdgHrchy extends Component {
       .distance(this.props.linkDistance)
       .links(this.state.links)
       .id(d => d.value))
+    .force('collision', d3.forceCollide()
+      .radius(40))
     .force('center', d3.forceCenter(this.props.width / 2, this.props.height / 2));
   // force-update the views
     this.force.on('tick', () => this.setState({
