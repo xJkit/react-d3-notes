@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "d3": "^4.10.0",
+    "element-react": "^1.2.0",
+    "element-theme-default": "^1.4.4",
     "prop-types": "^15.5.10",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
