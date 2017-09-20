@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { genNodesAndLinks } from './fake/FdgReactRender';
 import { clone } from 'ramda';
 import * as fakeHrchyData from './fake/hierarchy';
@@ -7,8 +8,17 @@ import { Switch, Link, Route } from 'react-router-dom';
 import { Home, BarChart, FDG, FdgReactRender, FdgHrchy } from './components';
 // element-ui
 import { Layout } from 'element-react';
+import * as swatch from 'constants/swatch';
 
 const { Row, Col } = Layout;
+
+const AppContainer = styled.div`
+  .app-header {
+    height: 40px;
+    color: ${swatch.White};
+    background-color: ${swatch.LightBlack};
+  }
+`;
 
 class App extends Component {
   constructor(props) {
@@ -47,8 +57,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app">
-        <Row>
+      <AppContainer>
+        <Row className="app-header">
           <Col span="24">這是 Header</Col>
         </Row>
         <Row>
@@ -112,7 +122,7 @@ class App extends Component {
         <p className="App-intro">
           Please click the navbar to change the chart type
         </p>
-      </div>
+      </AppContainer>
     );
   }
 }
