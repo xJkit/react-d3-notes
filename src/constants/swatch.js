@@ -8,15 +8,14 @@ export const DarkBlue = '#1D8CE0';
 /**
  * assistant colors
  */
- export const primary = '#20A0FF';
- export const success = '#13CE66';
- export const warning = '#F7BA2A';
- export const danger = '#FF4949';
+export const primary = '#20A0FF';
+export const success = '#13CE66';
+export const warning = '#F7BA2A';
+export const danger = '#FF4949';
 
 /**
  * moderate colors
  */
-
 export const Black = '#1F2D3D';
 export const LightBlack = '#324057';
 export const ExLightBlack = '#475669';

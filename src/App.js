@@ -7,7 +7,7 @@ import * as fakeHrchyData from './fake/hierarchy';
 import { Switch, Link, Route } from 'react-router-dom';
 import { Home, BarChart, FDG, FdgReactRender, FdgHrchy } from './components';
 // element-ui
-import { Layout } from 'element-react';
+import { Layout, Menu } from 'element-react';
 import * as swatch from 'constants/swatch';
 
 const { Row, Col } = Layout;
@@ -17,6 +17,22 @@ const AppContainer = styled.div`
     height: 40px;
     color: ${swatch.White};
     background-color: ${swatch.LightBlack};
+  }
+
+  .side-menu {
+    min-width: 200px;
+
+    a {
+      text-decoration: none;
+    }
+
+    .el-menu-item {
+      padding-left: 16px;
+    }
+  }
+
+  .content {
+    text-align: center;
   }
 `;
 
@@ -62,37 +78,31 @@ class App extends Component {
           <Col span="24">這是 Header</Col>
         </Row>
         <Row>
-          <Col span="6">
-            <ul className="navbar">
-              <li>
-                <Link to="/">
-                  Home
-                </Link>
-              </li>
-              <li>
+          <Col span="4">
+            <Menu mode="vertical" className="side-menu">
+              <Link to="/">
+                <Menu.Item index="home">Home</Menu.Item>
+              </Link>
+              <Menu.ItemGroup title="Chart">
                 <Link to="/bar-chart">
-                  BarChart
+                  <Menu.Item index="bar-chart">BarChart</Menu.Item>
                 </Link>
-              </li>
-              <li>
+              </Menu.ItemGroup>
+              <Menu.ItemGroup title="Graph">
                 <Link to="/force-directed-graph">
-                  Force-Directed Graph
+                  <Menu.Item index="fdg">Force-Directed Graph</Menu.Item>
                 </Link>
-              </li>
-              <li>
                 <Link to="/force-directed-graph-react-render">
-                  FdgReactRender
+                  <Menu.Item index="fdg-rc">FdgReactRender</Menu.Item>
                 </Link>
-              </li>
-              <li>
                 <Link to="/force-directed-graph-hierarchy-data">
-                  FdgHrchy
+                  <Menu.Item index="fdg-hrchy">FdgHrchy</Menu.Item>
                 </Link>
-              </li>
-            </ul>
+              </Menu.ItemGroup>
+            </Menu>
           </Col>
-          <Col span="18">
-            <div>
+          <Col span="20">
+            <div className="content">
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/bar-chart" component={BarChart} />
@@ -119,9 +129,6 @@ class App extends Component {
             </div>
           </Col>
         </Row>
-        <p className="App-intro">
-          Please click the navbar to change the chart type
-        </p>
       </AppContainer>
     );
   }
